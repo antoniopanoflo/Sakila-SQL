@@ -1,0 +1,23 @@
+SELECT 
+concat(customer.first_name, ' ', customer.last_name) as customer_name,
+customer.email,
+concat(address.address,' ', address.district,' ',city.city, ' ',country.country, ' ', address.postal_code) as mailing_address,
+count(rental.customer_id) as total_rental_count,
+CASE
+    WHEN count(rental.customer_id)<20 THEN "Bronze"
+    WHEN 20 <= count(rental.customer_id) <= 29 THEN "Silver"
+    WHEN 30 <= count(rental.customer_id) <= 39 THEN "Gold"
+    ELSE "Platinum"
+END AS rental_category
+FROM 
+customer, address, rental, city, country
+WHERE
+customer.address_id = address.address_id and 
+address.city_id = city.city_id and
+city.country_id = country.country_id and
+customer.customer_id = rental.customer_id and
+customer.active = 1
+GROUP BY
+rental.customer_id
+ORDER BY
+customer.last_name;
