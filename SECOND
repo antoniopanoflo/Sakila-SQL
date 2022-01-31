@@ -21,3 +21,7 @@ GROUP BY
 rental.customer_id
 ORDER BY
 customer.last_name;
+
+
+-- The following query is performed to lay out a customer's full name, contact information such as email address and mailing address as well as the number]
+-- of rentals they have taken -- later classifying them into a certain group based on the amount of rentals.
